@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Karla:wght@400;600;800&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+//colors
+$purple-hard: #293264;
+$purple-soft: #4D5B9E;
+$lilac-hard: #D6DBF5;
+$lilac-soft: #DBDEF0;
+$white: #F5F7FB;
+$green: #94D7A2;
+$pink: #F8BCBC;
+$black: #1C1C1C;
+$limoney: #FFFAD1;
+$baby: #DEEBF8;
+
+//typography
+$karla: 'Inter', sans-serif;
+$inter: 'Karla', sans-serif;
+
+body {
+  color: $purple-hard;
+}
+
+.font-karla {
+  font-family: $karla;
+}
+
+.font-inter {
+  font-family: $inter;
+}
+
+.circle {
+  position: absolute;
+  shape-outside: circle();
+  clip-path: circle();
+
+  &-big {
+    width: 500px;
+    height: 500px;
+    margin: 20px;
+  }
+
+  &-small {
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+  }
+}
+
+.up {
+  background: rgb(254, 226, 142);
+  top: -15%;
+  right: -12%;
+}
+
+.down {
+  background: rgba(249, 217, 122, 0.45);
+  left: -17%;
+  bottom: -13%;
+}
+
+.small-up {
+  background: rgb(255 243 207 / 45%);
+  top: 36px;
+  right: -17px;
+}
+
+.small-down {
+  background: rgb(254, 226, 142);
+  left: -103px;
+  bottom: 45px;
+  z-index: 1;
+}
+
+//button
+@mixin buttons($status) {
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+
+  @if $status ==nonChosen {
+    background-color: $lilac-hard;
+  }
+
+  @else if $status ==chosen {
+    background-color: $lilac-hard;
+
+  }
+
+  @else if $status ==correct {
+    background-color: $lilac-hard;
+
+  }
+
+  @else if $status ==incorrect {
+    background-color: $lilac-hard;
+
+  }
+
+  @else if $status ==review {
+    background-color: $lilac-hard;
+
+  }
+
+  @else {
+    width: 193px;
+    height: 50px;
+    background-color: #4D5B9E;
+    color: #F5F7FB;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+
+}

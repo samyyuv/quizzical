@@ -1,0 +1,37 @@
+@import './styles/_global';
+
+.container {
+  width: 1228px;
+  height: 570px;
+  margin: 4rem auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 30px;
+}
+
+.start-container {
+  >* {
+    margin: 0;
+  }
+
+  .title {
+    letter-spacing: 5px;
+  }
+
+  text-align: center;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .hard-button {
+    @include buttons(false);
+  }
+}
+
+
+
+.description {
+  padding: 1rem 0 2rem;
+}
