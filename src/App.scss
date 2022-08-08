@@ -1,9 +1,21 @@
 @import './styles/_global';
 
+body {
+
+  color: $purple-hard;
+}
+
+.font-karla {
+  font-family: $karla;
+}
+
+.font-inter {
+  font-family: $inter;
+}
+
 .container {
-  width: 1228px;
-  height: 570px;
-  margin: 4rem auto;
+  margin: 0 auto;
+  max-width: 1200px;
   overflow: hidden;
   position: relative;
   border-radius: 30px;
@@ -24,14 +36,42 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  .hard-button {
-    @include buttons(false);
-  }
 }
 
+.quiz-container {
+  width: 85%;
+  margin: 0 auto;
 
+}
+
+.quiz-container>.hard-button {
+  text-align: center
+}
+
+.hard-button {
+  @include buttons(false);
+}
 
 .description {
   padding: 1rem 0 2rem;
+}
+
+.nonChosen {
+  @include buttons(nonChosen);
+}
+
+.selected {
+  @include buttons(selected)
+}
+
+.separator-line {
+  width: 100%;
+  border-top: 1px solid $lilac-soft;
+  height: 0;
+  margin-top: 20px;
+}
+
+.button {
+  text-align: center;
+  margin-top: 25px;
 }

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Karla:wght@400;600;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Karla:wght@400;500;600;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -11,7 +11,7 @@ $lilac-hard: #D6DBF5;
 $lilac-soft: #DBDEF0;
 $white: #F5F7FB;
 $green: #94D7A2;
-$pink: #F8BCBC;
+$red: #F8BCBC;
 $black: #1C1C1C;
 $limoney: #FFFAD1;
 $baby: #DEEBF8;
@@ -20,17 +20,7 @@ $baby: #DEEBF8;
 $karla: 'Inter', sans-serif;
 $inter: 'Karla', sans-serif;
 
-body {
-  color: $purple-hard;
-}
 
-.font-karla {
-  font-family: $karla;
-}
-
-.font-inter {
-  font-family: $inter;
-}
 
 .circle {
   position: absolute;
@@ -78,34 +68,42 @@ body {
 //button
 @mixin buttons($status) {
   cursor: pointer;
-  border: none;
   font-size: 16px;
+  border-radius: 8px;
+  margin-right: 13px;
+  padding: 8px 20px;
+  color: $purple-hard;
+  font-weight: 500;
+  background-color: white;
+  border: 1px solid $purple-soft;
 
-  @if $status ==nonChosen {
+  &:hover {
     background-color: $lilac-hard;
+    border: 1px solid $lilac-hard;
   }
 
-  @else if $status ==chosen {
+  @if $status ==selected {
     background-color: $lilac-hard;
-
+    border: 1px solid $lilac-hard;
   }
 
-  @else if $status ==correct {
-    background-color: $lilac-hard;
 
+  @if $status ==correct {
+    background-color: $green;
+    border: 1px solid $green;
   }
 
   @else if $status ==incorrect {
-    background-color: $lilac-hard;
-
+    background-color: $red;
+    border: 1px solid $red;
   }
 
   @else if $status ==review {
-    background-color: $lilac-hard;
-
+    background-color: $lilac-soft;
+    border: 1px solid $lilac-soft;
   }
 
-  @else {
+  @else if $status ==false {
     width: 193px;
     height: 50px;
     background-color: #4D5B9E;
@@ -113,5 +111,6 @@ body {
     border-radius: 10px;
     font-weight: 500;
   }
+
 
 }
