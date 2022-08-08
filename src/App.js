@@ -27,7 +27,8 @@ function App() {
     < Question
       key={info.id}
       question={info.question}
-      all_answers={[...info.incorrect_answers, info.correct_answer].sort(() => Math.random() - 0.5)}
+      all_answers={[...info.incorrect_answers, info.correct_answer].sort(() =>
+        Math.random() - 0.5).map(option => ({ option: option, id: nanoid() }))}
       correct_answer={info.correct_answer}
     />
   )
