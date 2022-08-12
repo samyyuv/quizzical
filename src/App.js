@@ -5,11 +5,11 @@ import Question from './components/Question';
 import { nanoid } from "nanoid"
 
 const App = () => {
-  const [quiz, setQuiz] = useState(false)
+  const [quiz, setQuiz] = useState(true)
   const [triviaInfo, setTriviaInfo] = useState([])
   const [allQuestions, setAllQuestions] = useState([])
   const [correctAnswers, setCorrectAnswers] = useState(0)
-  const [cheking, setCheking] = useState(false)
+  const [checking, setchecking] = useState(false)
 
   useEffect(() => {
     fetchInfo()
@@ -28,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     checkAnswers()
-  }, [cheking])
+  }, [checking])
 
   const allAnswerd = allQuestions.every(question => question.selectedAnswer.length > 0)
 
@@ -41,7 +41,7 @@ const App = () => {
   function checkAnswers() {
     let answers = 0
     if (allAnswerd && allQuestions.length) {
-      setCheking(true)
+      setchecking(true)
       allQuestions.map(question => {
         if (question.selectedAnswer == question.correct_answer) {
           answers++
@@ -69,7 +69,7 @@ const App = () => {
     setQuiz(true)
     setAllQuestions([])
     setCorrectAnswers(0)
-    setCheking(false)
+    setchecking(false)
     fetchInfo()
   }
 
@@ -81,10 +81,10 @@ const App = () => {
         question={info.question}
         all_answers={[...info.incorrect_answers, info.correct_answer]}
         correct_answer={info.correct_answer}
-        incorrect_answers={info.incorrect_answer}
+        incorrect_answers={info.incorrect_answers}
         selectedAnswer={info.selectedAnswer}
         handleSelection={handleSelection}
-        checking={cheking}
+        checking={checking}
       />
     )
   })
@@ -95,10 +95,10 @@ const App = () => {
         : <div className='quiz-container'>
           {questionToShow}
           <div className="button">
-            {cheking && <h3>You scored {correctAnswers}/5 correct answers</h3>}
+            {checking && <h3>You scored {correctAnswers}/5 correct answers</h3>}
             <button className="hard-button font-inter"
-              onClick={cheking ? restart : checkAnswers}>
-              {cheking ? "Play again" : "Check answers"}</button>
+              onClick={checking ? restart : checkAnswers}>
+              {checking ? "Play again" : "Check answers"}</button>
           </div>
         </div>
       }

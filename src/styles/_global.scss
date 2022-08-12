@@ -20,8 +20,6 @@ $baby: #DEEBF8;
 $karla: 'Inter', sans-serif;
 $inter: 'Karla', sans-serif;
 
-
-
 .circle {
   z-index: 0;
   position: absolute;
@@ -66,7 +64,6 @@ $inter: 'Karla', sans-serif;
   z-index: 1;
 }
 
-//button
 @mixin buttons($status) {
   cursor: pointer;
   font-size: 16px;
@@ -96,11 +93,12 @@ $inter: 'Karla', sans-serif;
   @else if $status ==incorrect {
     background-color: $red;
     border: 1px solid $red;
+    opacity: .8;
   }
 
   @else if $status ==review {
-    background-color: $lilac-soft;
     border: 1px solid $lilac-soft;
+    opacity: .8;
   }
 
   @else if $status ==false {
@@ -111,6 +109,4 @@ $inter: 'Karla', sans-serif;
     border-radius: 10px;
     font-weight: 500;
   }
-
-
 }

@@ -15,13 +15,19 @@ body {
 .container {
   margin: 2rem auto;
   max-width: 900px;
+  min-height: 900px;
   overflow: hidden;
   border-radius: 30px;
   position: relative;
   padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 .start-container {
+
   >* {
     margin: 0;
   }
@@ -31,22 +37,17 @@ body {
   }
 
   text-align: center;
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+
+.quiz-container,
+.start-container {
+  z-index: 10;
+  position: relative;
 }
 
 .quiz-container {
   width: 85%;
   margin: 0 auto;
-  z-index: 10;
-  position: relative;
-}
-
-.quiz-container>.hard-button {
-  text-align: center
 }
 
 .hard-button {
@@ -95,4 +96,10 @@ body {
   margin-top: 25px;
   display: flex;
   justify-content: space-evenly;
+  gap: 1rem;
+  align-items: center;
+}
+
+.noEvents {
+  pointer-events: none;
 }
