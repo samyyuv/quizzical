@@ -1,7 +1,6 @@
 @import './styles/_global';
 
 body {
-
   color: $purple-hard;
 }
 
@@ -14,11 +13,12 @@ body {
 }
 
 .container {
-  margin: 0 auto;
-  max-width: 1200px;
+  margin: 2rem auto;
+  max-width: 900px;
   overflow: hidden;
-  position: relative;
   border-radius: 30px;
+  position: relative;
+  padding: 1rem;
 }
 
 .start-container {
@@ -41,7 +41,8 @@ body {
 .quiz-container {
   width: 85%;
   margin: 0 auto;
-
+  z-index: 10;
+  position: relative;
 }
 
 .quiz-container>.hard-button {
@@ -50,6 +51,12 @@ body {
 
 .hard-button {
   @include buttons(false);
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 13px;
 }
 
 .description {
@@ -61,7 +68,19 @@ body {
 }
 
 .selected {
-  @include buttons(selected)
+  @include buttons(selected);
+}
+
+.wrong {
+  @include buttons(incorrect);
+}
+
+.correct {
+  @include buttons(correct);
+}
+
+.review {
+  @include buttons(review);
 }
 
 .separator-line {
@@ -74,4 +93,6 @@ body {
 .button {
   text-align: center;
   margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
 }

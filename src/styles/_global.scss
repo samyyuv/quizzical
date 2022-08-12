@@ -23,6 +23,7 @@ $inter: 'Karla', sans-serif;
 
 
 .circle {
+  z-index: 0;
   position: absolute;
   shape-outside: circle();
   clip-path: circle();
@@ -70,7 +71,6 @@ $inter: 'Karla', sans-serif;
   cursor: pointer;
   font-size: 16px;
   border-radius: 8px;
-  margin-right: 13px;
   padding: 8px 20px;
   color: $purple-hard;
   font-weight: 500;
