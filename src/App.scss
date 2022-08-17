@@ -15,7 +15,7 @@ body {
 .container {
   margin: 2rem auto;
   max-width: 900px;
-  min-height: 900px;
+  min-height: 800px;
   overflow: hidden;
   border-radius: 30px;
   position: relative;
@@ -102,4 +102,35 @@ body {
 
 .noEvents {
   pointer-events: none;
+}
+
+.options-container {
+  padding-bottom: 1rem;
+}
+
+.select-container {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  gap: 1rem;
+  padding-bottom: 1rem;
+
+  >label {
+    width: 200px;
+    font-weight: 600;
+  }
+}
+
+.select-input {
+  width: 100%;
+  color: inherit;
+  @include buttons(nonChosen);
+
+  &:focus {
+    border: 2px solid $purple-hard;
+  }
+
+  &:hover {
+    background-color: white;
+  }
 }

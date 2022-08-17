@@ -1,19 +1,32 @@
 import { useState, useEffect } from "react";
 import './App.scss';
-import Start from './components/Start';
 import Question from './components/Question';
 import { nanoid } from "nanoid"
 
 const App = () => {
   const [quiz, setQuiz] = useState(true)
+  const [categories, setCategories] = useState([])
   const [triviaInfo, setTriviaInfo] = useState([])
   const [allQuestions, setAllQuestions] = useState([])
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [checking, setchecking] = useState(false)
+  const [formData, setFormData] = useState(
+    {
+      questions: "5",
+      category: false,
+      difficulty: false,
+      type: false,
+    })
+
+  useEffect(() => {
+    fetch("https://opentdb.com/api_category.php")
+      .then(res => res.json())
+      .then(data => setCategories(data.trivia_categories))
+  }, [])
 
   useEffect(() => {
     fetchInfo()
-  }, [])
+  }, [quiz])
 
   useEffect(() => {
     setAllQuestions(triviaInfo.map(question => {
@@ -25,22 +38,52 @@ const App = () => {
     }))
   }, [triviaInfo])
 
-
   useEffect(() => {
     checkAnswers()
   }, [checking])
 
-  const allAnswerd = allQuestions.every(question => question.selectedAnswer.length > 0)
+  function handleFormData(event) {
+    const { id, value } = event.target
+    setFormData(prevData => {
+      return {
+        ...prevData,
+        [id]: value
+      }
+    })
+  }
+
 
   function fetchInfo() {
-    fetch("https://opentdb.com/api.php?amount=5&type=multiple")
+    let linkApi = ""
+    const starterLink = "https://opentdb.com/api.php?amount=" + `${formData.questions}`
+    const category = "&category=" + `${formData.category}`
+    const difficulty = "&difficulty=" + `${formData.difficulty}`
+    const type = "&type=" + `${formData.type}`
+
+    if (!formData.category && !formData.difficulty && !formData.type || !formData.category && !formData.difficulty && formData.type == "multiple") {
+      linkApi = starterLink + "&type=multiple"
+    } else if (formData.category && !formData.difficulty && !formData.type) {
+      linkApi = starterLink + category
+    } else if (!formData.category && formData.difficulty && !formData.type) {
+      linkApi = starterLink + difficulty
+    } else if (!formData.category && !formData.difficulty && formData.type == "boolean") {
+      linkApi = starterLink + type
+    } else if (formData.category && formData.difficulty && formData.type) {
+      linkApi = starterLink + category + difficulty + type
+    } else if (formData.category && formData.difficulty && !formData.type) {
+      linkApi = starterLink + category + difficulty
+    } else if (formData.category && !formData.difficulty && formData.type) {
+      linkApi = starterLink + category + type
+    } else if (!formData.category && formData.difficulty && formData.type) {
+      linkApi = starterLink + difficulty + type
+    } fetch(linkApi)
       .then(res => res.json())
       .then(data => setTriviaInfo(data.results))
   }
 
   function checkAnswers() {
     let answers = 0
-    if (allAnswerd && allQuestions.length) {
+    if (allQuestions.every(question => question.selectedAnswer.length > 0) && allQuestions.length) {
       setchecking(true)
       allQuestions.map(question => {
         if (question.selectedAnswer == question.correct_answer) {
@@ -91,11 +134,54 @@ const App = () => {
 
   return (
     <div className='container'>
-      {quiz ? <Start startQuiz={(e) => startQuiz()} />
+      {quiz ?
+        <div className='start-container'>
+          <h1 className="title font-karla">Quizzical</h1>
+          <p className="description font-inter">Some description if needed</p>
+          <div className="options-container">
+            <div className="select-container">
+              <label htmlFor="questions">Number of Questions (5-50):</label>
+              <input className="select-input" id="questions" type="number" min="5" max="50" onChange={handleFormData} />
+            </div>
+
+            <div className="select-container">
+              <label htmlFor="category">Select Category:</label>
+              <select className="select-input" id="category" onChange={handleFormData}>
+                <option value="anyCateg">Any Category</option>
+                {categories.map(option => {
+                  return (
+                    <option value={option.id}>{option.name}</option>
+                  )
+                })}
+              </select>
+            </div>
+
+            <div className="select-container">
+              <label htmlFor="difficulty">Select Difficulty:</label>
+              <select className="select-input" id="difficulty" onChange={handleFormData}>
+                <option value="anyDiff">Any Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+
+            <div className="select-container">
+              <label htmlFor="type">Select Type:</label>
+              <select className="select-input" id="type" onChange={handleFormData}>
+                <option value="anyType">Any Type</option>
+                <option value="multiple">Multiple choise</option>
+                <option value="boolean">True / False</option>
+              </select>
+            </div>
+          </div>
+          <button onClick={startQuiz} className="hard-button font-inter">Start quiz</button>
+        </div>
+
         : <div className='quiz-container'>
           {questionToShow}
           <div className="button">
-            {checking && <h3>You scored {correctAnswers}/5 correct answers</h3>}
+            {checking && <h3>You scored {correctAnswers}/{formData.questions} correct answers</h3>}
             <button className="hard-button font-inter"
               onClick={checking ? restart : checkAnswers}>
               {checking ? "Play again" : "Check answers"}</button>
