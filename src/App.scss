@@ -2,6 +2,7 @@
 
 body {
   color: $purple-hard;
+  background-color: $background;
 }
 
 .font-karla {
@@ -13,11 +14,10 @@ body {
 }
 
 .container {
-  margin: 2rem auto;
-  max-width: 900px;
-  min-height: 800px;
+  margin: 0 auto;
+  max-width: 100vw;
+  min-height: 100vh;
   overflow: hidden;
-  border-radius: 30px;
   position: relative;
   padding: 1rem;
   display: flex;
@@ -46,8 +46,8 @@ body {
 }
 
 .quiz-container {
-  width: 85%;
-  margin: 0 auto;
+  width: 60%;
+  margin: 1rem auto;
 }
 
 .hard-button {

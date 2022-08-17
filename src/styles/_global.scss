@@ -9,12 +9,10 @@ $purple-hard: #293264;
 $purple-soft: #4D5B9E;
 $lilac-hard: #D6DBF5;
 $lilac-soft: #DBDEF0;
+$background: #edeef4;
 $white: #F5F7FB;
 $green: #94D7A2;
 $red: #F8BCBC;
-$black: #1C1C1C;
-$limoney: #FFFAD1;
-$baby: #DEEBF8;
 
 //typography
 $karla: 'Inter', sans-serif;
@@ -104,9 +102,14 @@ $inter: 'Karla', sans-serif;
   @else if $status ==false {
     width: 193px;
     height: 50px;
-    background-color: #4D5B9E;
+    background-color: $purple-hard;
     color: #F5F7FB;
     border-radius: 10px;
     font-weight: 500;
+
+    &:hover {
+      background-color: $purple-soft;
+      border: 1px solid $purple-soft;
+    }
   }
 }

@@ -4,19 +4,19 @@ import Question from './components/Question';
 import { nanoid } from "nanoid"
 
 const App = () => {
+  const startData = {
+    questions: "5",
+    category: false,
+    difficulty: false,
+    type: false
+  }
   const [quiz, setQuiz] = useState(true)
   const [categories, setCategories] = useState([])
   const [triviaInfo, setTriviaInfo] = useState([])
   const [allQuestions, setAllQuestions] = useState([])
   const [correctAnswers, setCorrectAnswers] = useState(0)
   const [checking, setchecking] = useState(false)
-  const [formData, setFormData] = useState(
-    {
-      questions: "5",
-      category: false,
-      difficulty: false,
-      type: false,
-    })
+  const [formData, setFormData] = useState(startData)
 
   useEffect(() => {
     fetch("https://opentdb.com/api_category.php")
@@ -26,7 +26,7 @@ const App = () => {
 
   useEffect(() => {
     fetchInfo()
-  }, [quiz])
+  }, [formData])
 
   useEffect(() => {
     setAllQuestions(triviaInfo.map(question => {
@@ -36,11 +36,8 @@ const App = () => {
         selectedAnswer: "",
       }
     }))
-  }, [triviaInfo])
-
-  useEffect(() => {
     checkAnswers()
-  }, [checking])
+  }, [triviaInfo])
 
   function handleFormData(event) {
     const { id, value } = event.target
@@ -51,7 +48,6 @@ const App = () => {
       }
     })
   }
-
 
   function fetchInfo() {
     let linkApi = ""
@@ -76,7 +72,8 @@ const App = () => {
       linkApi = starterLink + category + type
     } else if (!formData.category && formData.difficulty && formData.type) {
       linkApi = starterLink + difficulty + type
-    } fetch(linkApi)
+    }
+    fetch(linkApi)
       .then(res => res.json())
       .then(data => setTriviaInfo(data.results))
   }
@@ -113,6 +110,7 @@ const App = () => {
     setAllQuestions([])
     setCorrectAnswers(0)
     setchecking(false)
+    setFormData(startData)
     fetchInfo()
   }
 
@@ -137,10 +135,10 @@ const App = () => {
       {quiz ?
         <div className='start-container'>
           <h1 className="title font-karla">Quizzical</h1>
-          <p className="description font-inter">Some description if needed</p>
+          <p className="description font-inter">Quiz your knowledge!</p>
           <div className="options-container">
             <div className="select-container">
-              <label htmlFor="questions">Number of Questions (5-50):</label>
+              <label htmlFor="questions">Number of Questions (1-50):</label>
               <input className="select-input" id="questions" type="number" min="5" max="50" onChange={handleFormData} />
             </div>
 
@@ -150,7 +148,7 @@ const App = () => {
                 <option value="anyCateg">Any Category</option>
                 {categories.map(option => {
                   return (
-                    <option value={option.id}>{option.name}</option>
+                    <option key={option.id} value={option.id}>{option.name}</option>
                   )
                 })}
               </select>
